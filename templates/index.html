@@ -1,36 +1,33 @@
-<!doctype html>
-<html lang="en">
-  <head>
-    <meta charset="utf-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
-    <meta name="description" content="Skeleton application demoing Heroku and Flask integration.">
-    <meta name="author" content="@gotoariel">
-    <!-- <link rel="icon" href="favicon.ico"> -->
+{% extends 'layout.html' %}
 
-    <title>Wilkommen, bienvenue, and welcome to Heroku!</title>
+{% block body %}
 
-    <!-- Bootstrap core CSS -->
-    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css">
-  </head>
-  <body>
-    <div class="container">
-      <div class="row">
-        <div class="col-lg-12 text-left">
-          <h2>Hello, World!</h2>
-          <ul>
-            <li><a href="/about">About</a></li>
-            <li><a target="_blank" href="https://www.heroku.com/">Heroku</a></li>
-            <li><a target="_blank" href="http://flask.pocoo.org/">Flask</a></li>
-            <li><a target="_blank" href="http://jinja.pocoo.org/docs/2.9/">Jinja2</a></li>
-            <li><a target="_blank" href="http://getbootstrap.com/">Bootstrap</a></li>
-          </ul>
+<div class="jumbotron">
+    <h1 class="display-4">Stock Ticker Check and Analysis</h1>
+    <p class="lead">Set of tools.</p>
+</div>
+
+<div class="container mt-5">
+    <div class="card border-primary rounded mb-3">
+        <div class="card-header text-primary">
+            <h4>Look up stock by ticker</h4>
         </div>
-      </div>
+        <div class="card-body">
+                <form actions="/user" method="POST">
+                    {{ form.csrf_token }}
+                    <div class="form-row">
+
+                        <div class="form-group col-8">
+                            {{ form.ticker.label(class_="font-weight-bold") }}
+                            {{ form.ticker(class_="form-control") }}
+                        </div>
+                        <div class="form-group col-4">
+                            <button type="submit" class="btn btn-primary">Run</button>
+                        </div>
+
+                    </div>
+                </form>
+        </div>
     </div>
-    <!-- Bootstrap core JavaScript
-    ================================================== -->
-    <!-- Placed at the end of the document so the pages load faster -->
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.2.1/jquery.js"></script>
-    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>
-  </body>
-</html>
+</div>
+{% endblock %}
