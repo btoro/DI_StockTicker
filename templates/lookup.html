@@ -1,7 +1,92 @@
 {% extends 'layout.html' %}
-
+{% block head %}
+    <link href="http://cdn.pydata.org/bokeh/release/bokeh-1.0.2.min.css" rel="stylesheet">
+    <link href="http://cdn.pydata.org/bokeh/release/bokeh-widgets-1.0.2.min.css" rel="stylesheet">
+{% endblock %}
 {% block body %}
 <div class="container mt-5">
-
+    {% if the_div %}     {{ the_div|safe }} {% endif %}
 </div>
+<div class="container mt-5">
+    <h4 class="text-primary">Settings</h4>
+
+    <div class="mb-5"></div>
+
+    <form method="POST">
+    {{ form.csrf_token }}
+
+    <div class="form-group col-8 row ">
+        <div class="col-sm-2">
+
+            {{ form.ticker.label(class_="font-weight-bold") }}
+        </div> 
+
+        <div class="col-sm-6">
+            {{ form.ticker(class_="form-control") }}
+        </div> 
+    </div>
+    <div class="form-group col-12 row">
+        <div class="col-sm-2">
+            {{ form.yaxis.label(class_="font-weight-bold") }}
+        </div>
+        <div class="col-sm-6">
+            {{ form.yaxis(class_="form-control") }}
+        </div>
+
+    </div>
+    <div class="form-group col-12 row">
+        <div class="col-sm-2">
+            <label class="font-weight-bold">Start Range</label>
+        </div>
+    </div>
+    <div class="form-group col-12 row">
+        <div class="col-sm-2">
+            {{ form.startYear.label(class_="font-weight-bold") }}
+        </div>
+        <div class="col-sm-4">
+            {{ form.startYear( min=2015, max=2018, class_="form-control" , oninput="outputUpdate(value)") }}
+        </div>
+        <div class="col-sm-2">
+            {{ form.startMonth.label(class_="font-weight-bold", oninput="outputUpdate(value)") }}
+        </div>
+        <div class="col-sm-4">
+            {{ form.startMonth(class_="form-control") }}
+        </div> 
+    </div>
+    <div class="form-group col-12 row">
+        <div class="col-sm-2">
+            <label class="font-weight-bold">End Range</label>
+        </div>
+    </div>
+    <div class="form-group col-12 row">
+        <div class="col-sm-2">
+            {{ form.endYear.label(class_="font-weight-bold") }}
+        </div>
+        <div class="col-sm-4">
+            {{ form.endYear( min=2015, max=2018, class_="form-control" , oninput="outputUpdate(value)") }}
+        </div>
+        <div class="col-sm-2">
+            {{ form.endMonth.label(class_="font-weight-bold", oninput="outputUpdate(value)") }}
+        </div>
+        <div class="col-sm-4">
+            {{ form.endMonth(class_="form-control") }}
+        </div> 
+    </div>
+    <div class="form-group col-8 row">
+        <div class="col-sm-10">
+
+        </div>
+
+    </div>
+
+
+    <div class="form-group col-4">
+        <button type="submit" class="btn btn-primary">Update</button>
+    </div>
+    </form>
+</div>
+<script src="http://cdn.pydata.org/bokeh/release/bokeh-1.0.2.min.js"></script>
+<script src="http://cdn.pydata.org/bokeh/release/bokeh-widgets-1.0.2.min.js"></script>
+{% if the_script %}     {{ the_script|safe }} {% endif %}
+
 {% endblock %}

@@ -3,27 +3,29 @@
 {% block body %}
 
 <div class="jumbotron">
-    <h1 class="display-4">Stock Ticker Check and Analysis</h1>
-    <p class="lead">Set of tools.</p>
+    <h1 class="display-4">Check up on your stock</h1>
 </div>
 
-<div class="container mt-5">
-    <div class="card border-primary rounded mb-3">
+<div class="container mt-5 col-8">
+    <div class="card border-primary rounded mb-3 ">
         <div class="card-header text-primary">
-            <h4>Look up stock by ticker</h4>
+            <h4>Search by Ticker:</h4>
         </div>
         <div class="card-body">
                 <form actions="/user" method="POST">
                     {{ form.csrf_token }}
                     <div class="form-row">
 
-                        <div class="form-group col-8">
-                            {{ form.ticker.label(class_="font-weight-bold") }}
-                            {{ form.ticker(class_="form-control") }}
+                        <div class="form-group col-8 row">
+                            <div class="col-sm-6">
+                                {{ form.ticker(class_="form-control") }}
+                            </div>
+                            <div class="col-sm-2">
+                                <button type="submit" class="btn btn-primary">Run</button>
+                            </div>
                         </div>
-                        <div class="form-group col-4">
-                            <button type="submit" class="btn btn-primary">Run</button>
-                        </div>
+
+
 
                     </div>
                 </form>
