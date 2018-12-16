@@ -1,10 +1,9 @@
+from bokeh.models import Range1d
+from bokeh.models.sources import ColumnDataSource
+from bokeh.embed import components
+from bokeh.plotting import figure
 import requests
 import pandas as pd
-
-from bokeh.plotting import figure
-from bokeh.embed import components
-from bokeh.models.sources import ColumnDataSource
-from bokeh.models import Range1d
 
 
 def getPlotData(ticker):
