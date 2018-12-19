@@ -39,6 +39,15 @@ errormsg = [
 
 app.secret_key = os.environ.get("FLASK_SECRET_KEY", "you-will-never-guess")
 
+api_file = 'apikey.txt'
+
+try:
+    with open(api_file, 'r') as f:
+        api = f.read().strip()
+except FileNotFoundError:
+    print('No Quandal API KEY Loaded')
+    api = ''
+
 
 class tickerlookupSubmitForm(Form):
     ticker = TextField(
@@ -80,7 +89,7 @@ def tickerplot(id):
         if form.ticker.data != id:
             return redirect('/lookup/{}'.format(form.ticker.data), code=307)
 
-        data, error = getPlotData(id)
+        data, error = getPlotData(id, api)
 
         # Check for: request and result count
         if(error):
@@ -98,7 +107,7 @@ def tickerplot(id):
             flash(errormsg[error][0], errormsg[error][1])
             return render_template('lookup.html', id=None, the_div=None, the_script=None, form=form)
     else:
-        data, error = getPlotData(id)
+        data, error = getPlotData(id, api)
 
         # Check for: request and result count
         if(error):
@@ -108,7 +117,8 @@ def tickerplot(id):
         yaxis = 'close'
         label = 'Closing Price'
         data2 = data
-        form.ticker.data = id
+
+    form.ticker.default = id
 
     maxyear = data['date'].dt.year.max()
     minyear = data['date'].dt.year.min()
@@ -117,11 +127,14 @@ def tickerplot(id):
     for year in range(minyear, maxyear+1):
         choices.append((year, year))
 
-    form.endYear.default = maxyear
-    form.endMonth.default = 12
-
     form.startYear.choices = choices
     form.endYear.choices = choices
+
+    if request.method == 'GET':
+        form.endYear.default = maxyear
+        form.endMonth.default = 12
+
+        form.process()
 
     plot = createFigure(data2, yaxis, id, 'Date', label)
 
@@ -136,4 +149,4 @@ def about():
 
 
 if __name__ == '__main__':
-    app.run(port=33507)
+    app.run(port=33507, debug=True)

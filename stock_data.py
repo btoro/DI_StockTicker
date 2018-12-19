@@ -6,8 +6,8 @@ import requests
 import pandas as pd
 
 
-def getPlotData(ticker):
-    api = '7mF86XvCkjAfdKj7yv1M'
+def getPlotData(ticker, api):
+
     r = requests.get(
         'https://www.quandl.com/api/v3/datatables/WIKI/prices.json?ticker={}&api_key={}'.format(ticker, api))
 
