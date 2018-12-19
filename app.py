@@ -46,7 +46,8 @@ try:
         api = f.read().strip()
 except FileNotFoundError:
     print('No Quandal API KEY Loaded')
-    api = ''
+
+    api = os.environ['quandal']
 
 
 class tickerlookupSubmitForm(Form):
